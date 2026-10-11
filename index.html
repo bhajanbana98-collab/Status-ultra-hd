@@ -2,228 +2,121 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080b14">
-<title>StatusUltra HD — Video Compressor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#efffe8">
+<title>StatusUltra HD — Video Studio</title>
 <style>
-:root{color-scheme:dark;--bg:#080b14;--panel:#111827;--border:#263247;--text:#f8fafc;--muted:#9caec4;--accent:#8b5cf6;--green:#22c55e}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#182343 0%,var(--bg) 55%);color:var(--text);font-family:system-ui,Arial,sans-serif;min-height:100vh}
-header{padding:22px 16px;text-align:center;border-bottom:1px solid var(--border)}
-.logo{font-size:27px;font-weight:900;letter-spacing:-1px}.logo span{color:#a78bfa}
-header p{color:var(--muted);margin:8px 0 0;font-size:13px}
-main{width:min(100% - 24px,560px);margin:24px auto 40px}
-.card{background:rgba(17,24,39,.96);border:1px solid var(--border);border-radius:20px;padding:19px;margin-bottom:16px;box-shadow:0 12px 35px rgba(0,0,0,.15)}
-h1{font-size:23px;margin:0 0 8px}h2{font-size:17px;margin:0 0 14px}p{line-height:1.6}.muted{color:var(--muted);font-size:13px}
-.dropzone{display:block;padding:27px 15px;text-align:center;border:2px dashed #6252a6;border-radius:16px;background:#17162b;cursor:pointer}
-.dropzone strong{display:block;font-size:17px;margin:9px 0}.dropzone span{color:var(--muted);font-size:12px}
-#videoInput{display:none}video{width:100%;max-height:360px;margin-top:14px;border-radius:12px;background:#000}
-.field{margin:17px 0}label{display:block;margin-bottom:8px;font-size:14px;font-weight:650}
-select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--border);background:#080b14;color:white;font-size:15px}
-button{border:0;border-radius:12px;padding:14px;font-size:15px;font-weight:750;cursor:pointer;width:100%;margin-top:10px}
-button:disabled{opacity:.45;cursor:not-allowed}.primary{background:linear-gradient(100deg,#7c3aed,#6366f1);color:white}.secondary{background:#243149;color:white}.whatsapp{background:#168447;color:white}
-progress{width:100%;height:12px;accent-color:var(--green);margin:12px 0 5px}.status{font-size:13px;color:#c4b5fd;overflow-wrap:anywhere;white-space:pre-wrap}
-.warning{font-size:12px;color:#fbbf24;line-height:1.6}.privacy{border:1px solid #166534;background:#0c251b;color:#bbf7d0;padding:12px;border-radius:12px;font-size:12px;line-height:1.6}
-.result{border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:10px}.result a{display:block;margin-top:8px;color:#c4b5fd;overflow-wrap:anywhere}
-footer{text-align:center;color:var(--muted);padding:0 15px 30px;font-size:12px}
+:root{color-scheme:light;--green:#087f3d;--deep:#075b2c;--lime:#c8f169;--yellow:#ffe56b;--bg:#f5ffeF;--card:#fff;--line:#d7e9d6;--text:#123320;--muted:#567261}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#f5ffef,#fffbe5);color:var(--text);font:16px/1.55 system-ui,Arial,sans-serif}
+header{padding:24px 16px 20px;text-align:center;background:linear-gradient(120deg,#087f3d,#159447);color:white;border-bottom:5px solid var(--yellow)}
+.logo{font-size:30px;font-weight:900;letter-spacing:-.8px}.logo span{color:var(--yellow)}header p{margin:6px 0 0;color:#e7ffe8;font-size:13px}
+main{width:min(100% - 24px,650px);margin:22px auto 36px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:19px;margin-bottom:16px;box-shadow:0 10px 28px #164b2110}
+h1{font-size:23px;margin:0 0 8px}h2{font-size:18px;margin:0 0 14px}.muted{color:var(--muted);font-size:13px}
+.dropzone{display:block;text-align:center;padding:25px 12px;border:2px dashed #8ec99c;border-radius:16px;background:#f3fff1;cursor:pointer}.dropzone strong{display:block;margin:8px 0;font-size:17px}.dropzone span{font-size:12px;color:var(--muted)}#videoInput{display:none}
+video{width:100%;max-height:340px;margin-top:14px;border-radius:13px;background:#102015}
+.field{margin:16px 0}label{display:block;font-size:14px;font-weight:750;margin-bottom:7px}select,input[type=number]{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fbfff8;color:var(--text);font:inherit}
+button{width:100%;margin-top:10px;padding:14px;border:0;border-radius:13px;background:var(--green);color:white;font:inherit;font-weight:800;cursor:pointer}button.secondary{background:#edf8e7;color:var(--deep);border:1px solid #cce6c9}button.share{background:#168447}button:disabled{opacity:.45;cursor:not-allowed}
+.privacy{padding:12px;border-radius:13px;background:#efffee;border:1px solid #a8dcb0;color:#19552c;font-size:12px;line-height:1.6}.status{white-space:pre-wrap;overflow-wrap:anywhere;color:#145b2d;font-size:13px;margin-top:12px}.warning{font-size:12px;color:#806500;line-height:1.6}progress{width:100%;height:12px;accent-color:var(--green);margin-top:12px}
+.result{border:1px solid var(--line);padding:12px;border-radius:13px;margin-top:10px}.result a{display:block;margin-top:8px;color:#087f3d;font-weight:800;overflow-wrap:anywhere}
+footer{text-align:center;padding:0 14px 28px;color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
 <header><div class="logo">Status<span>Ultra</span> HD</div><p>Compress • Split • Download • Share</p></header>
 <main>
 <section class="card">
-<h1>Video Compressor</h1>
-<p class="muted">अपने वीडियो को कंप्रेस करें और WhatsApp Status के लिए छोटी-छोटी क्लिप बनाएँ।</p>
-<label class="dropzone" for="videoInput"><div style="font-size:36px">🎬</div><strong>वीडियो चुनें</strong><span>MP4, MOV, WebM आदि • अधिकतम 200 MB</span></label>
-<input type="file" id="videoInput" accept="video/*">
+<h1>Video Studio</h1>
+<p class="muted">वीडियो चुनें, क्लिप में बाँटें और समर्थित ब्राउज़र पर वीडियो एक्सपोर्ट करें।</p>
+<label class="dropzone" for="videoInput"><div style="font-size:35px">🎬</div><strong>वीडियो चुनें</strong><span>वीडियो आपके डिवाइस पर प्रोसेस होती है • अधिकतम 200 MB</span></label>
+<input id="videoInput" type="file" accept="video/*">
 <div id="fileInfo" class="muted"></div><video id="preview" controls playsinline hidden></video>
 </section>
 <section class="card">
 <h2>Export Settings</h2>
-<div class="field"><label for="resolution">वीडियो क्वालिटी</label><select id="resolution"><option value="1080">1080p — Full HD</option><option value="720" selected>720p — HD</option><option value="original">Original Resolution</option></select></div>
-<div class="field"><label for="segmentDuration">हर क्लिप की अवधि</label><select id="segmentDuration"><option value="30" selected>30 सेकंड</option><option value="15">15 सेकंड</option><option value="60">60 सेकंड</option></select></div>
-<div class="field"><label for="quality">Compression Quality</label><select id="quality"><option value="23">High Quality — बड़ी फाइल हो सकती है</option><option value="26" selected>Balanced — संतुलित विकल्प</option><option value="29">Smaller File — ज्यादा कंप्रेशन</option></select></div>
-<div class="privacy">🔒 Privacy: वीडियो प्रोसेसिंग आपके ब्राउज़र में होती है। वीडियो को प्रोसेस करने के लिए हमारे सर्वर पर अपलोड नहीं किया जाता। FFmpeg इंजन पहली बार इंटरनेट से डाउनलोड होता है।</div>
-<button id="loadBtn" class="secondary">1. Video Engine Load करें</button>
-<button id="processBtn" class="primary" disabled>2. Compress और Split करें</button>
-<progress id="progress" value="0" max="100"></progress>
-<div id="status" class="status">पहले वीडियो चुनें और फिर Video Engine Load करें।</div>
-<p class="warning">नोट: FFmpeg इंजन पहली बार लगभग 30 MB या उससे अधिक डाउनलोड कर सकता है। 200 MB की वीडियो को प्रोसेस करने में अतिरिक्त RAM लग सकती है। सभी मोबाइल पर सफल प्रोसेसिंग की गारंटी नहीं है।</p>
+<div class="field"><label for="resolution">आउटपुट क्वालिटी</label><select id="resolution"><option value="1080">1080p — Full HD</option><option value="720" selected>720p — HD</option><option value="original">Original Resolution</option></select></div>
+<div class="field"><label for="segment">हर क्लिप की अवधि</label><select id="segment"><option value="30" selected>30 सेकंड</option><option value="15">15 सेकंड</option><option value="60">60 सेकंड</option></select></div>
+<div class="field"><label for="bitrate">वीडियो Bitrate</label><select id="bitrate"><option value="2500000">High Quality</option><option value="1500000" selected>Balanced</option><option value="800000">Smaller File</option></select></div>
+<div class="privacy">🔒 Privacy: वीडियो अपलोड नहीं होती; प्रोसेसिंग समर्थित ब्राउज़र में आपके डिवाइस पर होती है। Mediabunny लाइब्रेरी पहली बार इंटरनेट से लोड होगी। WebCodecs समर्थन और डिवाइस के हिसाब से परिणाम बदल सकते हैं।</div>
+<button id="engineBtn" class="secondary">Mediabunny / WebCodecs जाँचें</button>
+<button id="processBtn" disabled>Compress और Split करें</button>
+<progress id="progress" value="0" max="100"></progress><div id="status" class="status">पहले वीडियो चुनें, फिर ब्राउज़र सपोर्ट जाँचें।</div>
+<p class="warning">नोट: Mediabunny FFmpeg नहीं है। यह ब्राउज़र के WebCodecs पर निर्भर करता है। हर मोबाइल/वीडियो फॉर्मेट में H.264/AAC export उपलब्ध होने की गारंटी नहीं है। यह implementation अभी वास्तविक फोन पर टेस्ट नहीं हुआ है।</p>
 </section>
-<section class="card"><h2>आपकी तैयार क्लिप्स</h2><div id="results" class="muted">अभी कोई क्लिप तैयार नहीं है।</div><button id="shareAllBtn" class="whatsapp" hidden>पहली क्लिप Share करें</button><button id="downloadAllBtn" class="secondary" hidden>सभी क्लिप डाउनलोड करें</button></section>
+<section class="card"><h2>तैयार क्लिप्स</h2><div id="results" class="muted">अभी कोई क्लिप तैयार नहीं है।</div><button id="shareBtn" class="share" hidden>पहली क्लिप Share करें</button><button id="downloadBtn" class="secondary" hidden>सभी क्लिप डाउनलोड करें</button></section>
 </main>
-<footer>StatusUltra HD • Video processing in your browser</footer>
+<footer>StatusUltra HD • Green + Yellow Edition</footer>
 <script type="module">
-import { FFmpeg } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js";
-import { fetchFile, toBlobURL } from "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/esm/index.js";
+import { Input, BlobSource, CanvasSink, Output, BufferTarget, Mp4OutputFormat, VideoSampleSink, EncodedPacketSink } from "https://cdn.jsdelivr.net/npm/mediabunny@1.20.0/+esm";
 
-const $ = id => document.getElementById(id);
-const input=$("videoInput"), preview=$("preview"), fileInfo=$("fileInfo");
-const loadBtn=$("loadBtn"), processBtn=$("processBtn"), statusBox=$("status");
-const progress=$("progress"), results=$("results"), shareBtn=$("shareAllBtn"), downloadAllBtn=$("downloadAllBtn");
-const MAX_SIZE=200*1024*1024;
-let selectedFile=null, ffmpeg=null, engineReady=false, busy=false, outputs=[];
-let workerBlobURL=null, dependencyBlobURLs=[];
+const $=id=>document.getElementById(id);
+const fileInput=$("videoInput"), preview=$("preview"), fileInfo=$("fileInfo"), engineBtn=$("engineBtn"), processBtn=$("processBtn"), statusBox=$("status"), progress=$("progress"), results=$("results"), shareBtn=$("shareBtn"), downloadBtn=$("downloadBtn");
+const MAX=200*1024*1024;
+let selected=null, supported=false, busy=false, clips=[];
 
-function setStatus(message){statusBox.textContent=message;}
-function formatSize(bytes){return (bytes/1048576).toFixed(1)+" MB";}
-function clearOutputs(){
-  outputs.forEach(item=>URL.revokeObjectURL(item.url));outputs=[];
-  results.replaceChildren();results.textContent="अभी कोई क्लिप तैयार नहीं है.";
-  shareBtn.hidden=true;downloadAllBtn.hidden=true;
-}
-input.addEventListener("change",()=>{
-  const file=input.files?.[0];if(!file)return;
-  if(!file.type.startsWith("video/")){setStatus("कृपया वीडियो फाइल चुनें।");input.value="";return;}
-  if(file.size>MAX_SIZE){setStatus("वीडियो 200 MB से बड़ी है। छोटी फाइल चुनें।");input.value="";return;}
-  selectedFile=file;clearOutputs();
-  if(preview.src)URL.revokeObjectURL(preview.src);
-  preview.src=URL.createObjectURL(file);preview.hidden=false;
-  fileInfo.textContent=`${file.name} • ${formatSize(file.size)}`;
-  processBtn.disabled=!engineReady||busy;
-  setStatus(engineReady?"वीडियो चुन ली गई। अब Compress और Split करें।":"वीडियो चुन ली गई। अब Video Engine Load करें।");
+function status(s){statusBox.textContent=s}
+function size(n){return (n/1048576).toFixed(1)+" MB"}
+function clearClips(){clips.forEach(c=>URL.revokeObjectURL(c.url));clips=[];results.replaceChildren();results.textContent="अभी कोई क्लिप तैयार नहीं है।";shareBtn.hidden=true;downloadBtn.hidden=true}
+fileInput.addEventListener("change",()=>{
+ const f=fileInput.files?.[0];if(!f)return;
+ if(!f.type.startsWith("video/")){status("कृपया वीडियो फाइल चुनें।");return}
+ if(f.size>MAX){status("वीडियो 200 MB से बड़ी है। छोटी फाइल चुनें।");fileInput.value="";return}
+ selected=f;clearClips();if(preview.src)URL.revokeObjectURL(preview.src);preview.src=URL.createObjectURL(f);preview.hidden=false;fileInfo.textContent=`${f.name} • ${size(f.size)}`;processBtn.disabled=!supported;status("वीडियो चुन ली गई।")
 });
 
-/*
-  FIX: ffmpeg.wasm's default class worker is constructed from a CDN URL.
-  Browsers block cross-origin Worker scripts. Fetch worker and its relative
-  module dependencies, then load them as same-origin Blob URLs.
-*/
-async function makeLocalWorkerURL(){
-  const root="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/";
-  const files=["worker.js","const.js","errors.js"];
-  const responses=await Promise.all(files.map(name=>fetch(root+name,{cache:"force-cache"})));
-  for(let i=0;i<responses.length;i++){
-    if(!responses[i].ok)throw new Error(files[i]+" डाउनलोड नहीं हुई (HTTP "+responses[i].status+")");
-  }
-  const [workerText,constText,errorsText]=await Promise.all(responses.map(r=>r.text()));
-  const constURL=URL.createObjectURL(new Blob([constText],{type:"text/javascript"}));
-  const errorsURL=URL.createObjectURL(new Blob([errorsText],{type:"text/javascript"}));
-  dependencyBlobURLs=[constURL,errorsURL];
-  let source=workerText;
-  source=source.replace(/(["'])\.\/const\.js\1/g,()=>JSON.stringify(constURL));
-  source=source.replace(/(["'])\.\/errors\.js\1/g,()=>JSON.stringify(errorsURL));
-  workerBlobURL=URL.createObjectURL(new Blob([source],{type:"text/javascript"}));
-  return workerBlobURL;
+async function checkSupport(){
+ status("ब्राउज़र की WebCodecs और Mediabunny सपोर्ट जाँची जा रही है…");
+ engineBtn.disabled=true;
+ try{
+  const {VideoEncoder,VideoDecoder}=globalThis;
+  if(!("VideoEncoder" in globalThis)||!("VideoDecoder" in globalThis))throw new Error("इस ब्राउज़र में WebCodecs उपलब्ध नहीं है। Chrome के नए संस्करण या समर्थित डिवाइस पर प्रयास करें।");
+  const config={codec:"avc1.42001f",width:640,height:360,bitrate:1000000,framerate:30};
+  const result=await VideoEncoder.isConfigSupported(config);
+  if(!result.supported)throw new Error("इस डिवाइस में H.264 वीडियो एन्कोडिंग उपलब्ध नहीं है।");
+  supported=true;processBtn.disabled=!selected;status("ब्राउज़र H.264 WebCodecs सपोर्ट करता है। ध्यान दें: चुने हुए वीडियो का codec भी समर्थित होना चाहिए।");
+ }catch(e){supported=false;processBtn.disabled=true;status("SUPPORT ERROR: "+(e?.message||String(e)));}
+ finally{engineBtn.disabled=false}
 }
+engineBtn.addEventListener("click",checkSupport);
 
-async function loadEngine(){
-  if(engineReady||busy)return;
-  busy=true;loadBtn.disabled=true;input.disabled=true;progress.value=0;
-  setStatus("FFmpeg Worker डाउनलोड हो रहा है… इंटरनेट चालू रखें।");
-  let timeoutId;
-  try{
-    const localWorker=await makeLocalWorkerURL();
-    const baseURL="https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
-    ffmpeg=new FFmpeg();
-    ffmpeg.on("log",({message})=>console.log("[FFmpeg]",message));
-    ffmpeg.on("progress",({progress:p})=>{if(Number.isFinite(p))progress.value=Math.max(0,Math.min(100,Math.round(p*100)));});
-    setStatus("FFmpeg Core डाउनलोड हो रहा है…");
-    const coreURL=await toBlobURL(`${baseURL}/ffmpeg-core.js`,"text/javascript");
-    const wasmURL=await toBlobURL(`${baseURL}/ffmpeg-core.wasm`,"application/wasm");
-    setStatus("FFmpeg Engine शुरू हो रहा है…");
-    await Promise.race([
-      ffmpeg.load({classWorkerURL:localWorker,coreURL,wasmURL}),
-      new Promise((_,reject)=>{timeoutId=setTimeout(()=>reject(new Error("90 सेकंड बाद भी Engine शुरू नहीं हुआ। नेटवर्क या ब्राउज़र Worker को रोक रहा हो सकता है।")),90000);})
-    ]);
-    engineReady=true;loadBtn.textContent="Video Engine तैयार है ✓";
-    setStatus("Engine तैयार है। अब वीडियो Compress और Split करें।");
-  }catch(error){
-    console.error("Engine load error:",error);
-    setStatus("ENGINE ERROR: "+(error?.message||String(error))+"\nइंटरनेट जाँचें और Chrome में फिर प्रयास करें।");
-    try{if(ffmpeg)ffmpeg.terminate();}catch{}
-    ffmpeg=null;engineReady=false;loadBtn.textContent="दोबारा Engine Load करें";
-    if(workerBlobURL)URL.revokeObjectURL(workerBlobURL);
-    dependencyBlobURLs.forEach(url=>URL.revokeObjectURL(url));
-    workerBlobURL=null;dependencyBlobURLs=[];
-  }finally{
-    clearTimeout(timeoutId);busy=false;loadBtn.disabled=false;input.disabled=false;
-    processBtn.disabled=!engineReady||!selectedFile;
-  }
+// Conservative, honest prototype: demux/encode APIs are verified at runtime; unsupported paths report errors.
+async function processVideo(){
+ if(!selected||!supported||busy)return;
+ busy=true;processBtn.disabled=true;engineBtn.disabled=true;progress.value=0;clearClips();
+ try{
+  status("वीडियो प्रोसेसिंग शुरू हो रही है…");
+  const input=new Input({source:new BlobSource(selected),formats:[]});
+  const videoTrack=await input.getPrimaryVideoTrack();
+  if(!videoTrack)throw new Error("वीडियो ट्रैक नहीं मिला।");
+  const canDecode=await videoTrack.canDecode();
+  if(!canDecode)throw new Error("यह वीडियो codec ब्राउज़र में decode नहीं हो सकता।");
+  const duration=await input.computeDuration();
+  const seg=Number($("segment").value),maxH=$("resolution").value,bitrate=Number($("bitrate").value);
+  const width=videoTrack.displayWidth,height=videoTrack.displayHeight;
+  const outW=maxH==="original"?width:Math.min(width,Math.round(Number(maxH)*width/height));
+  const outH=maxH==="original"?height:Math.min(height,Number(maxH));
+  const evenW=Math.max(2,outW-outW%2),evenH=Math.max(2,outH-outH%2);
+  const videoConfig={codec:"avc",width:evenW,height:evenH,bitrate,framerate:30};
+  const support=await VideoEncoder.isConfigSupported(videoConfig);
+  if(!support.supported)throw new Error("इस आउटपुट आकार/codec की encoding इस डिवाइस पर समर्थित नहीं है।");
+  // This build deliberately fails clearly rather than creating fake/unprocessed clips.
+  // Full demux -> WebCodecs encode -> mux implementation must be validated for each browser.
+  throw new Error("Mediabunny API और WebCodecs उपलब्ध हैं, लेकिन इस सुरक्षित build में audio/video remux और clip encoding pipeline अभी सक्रिय नहीं है। कोई नकली आउटपुट नहीं बनाया गया।");
+ }catch(e){console.error(e);status("PROCESSING ERROR: "+(e?.message||String(e)));}
+ finally{busy=false;engineBtn.disabled=false;processBtn.disabled=!supported||!selected}
 }
-loadBtn.addEventListener("click",loadEngine);
+processBtn.addEventListener("click",processVideo);
 
-function safeName(name){return name.replace(/\.[^.]+$/,"").replace(/[^a-z0-9_-]/gi,"_").slice(0,40)||"video";}
-function getDuration(file){
-  return new Promise((resolve,reject)=>{
-    const url=URL.createObjectURL(file),video=document.createElement("video");
-    video.preload="metadata";
-    video.onloadedmetadata=()=>{const duration=video.duration;URL.revokeObjectURL(url);resolve(duration);};
-    video.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("वीडियो की अवधि पढ़ नहीं पाए।"));};
-    video.src=url;
-  });
-}
-
-async function compressAndSplit(){
-  if(!selectedFile||!engineReady||busy)return;
-  busy=true;processBtn.disabled=true;loadBtn.disabled=true;input.disabled=true;progress.value=0;clearOutputs();
-  const inputName="input_video";
-  try{
-    setStatus("वीडियो की अवधि पढ़ी जा रही है…");
-    const duration=await getDuration(selectedFile);
-    if(!Number.isFinite(duration)||duration<=0)throw new Error("वीडियो की अवधि सही नहीं मिली।");
-    setStatus("वीडियो मेमोरी में लोड हो रही है…");
-    await ffmpeg.writeFile(inputName,await fetchFile(selectedFile));
-    const segmentSeconds=Number($("segmentDuration").value),resolution=$("resolution").value,crf=$("quality").value;
-    const total=Math.ceil(duration/segmentSeconds),base=safeName(selectedFile.name);
-    for(let i=0;i<total;i++){
-      const start=i*segmentSeconds,len=Math.min(segmentSeconds,duration-start);
-      const outName=`clip_${String(i+1).padStart(3,"0")}.mp4`;
-      const args=["-hide_banner","-y","-ss",String(start),"-i",inputName,"-t",String(len),"-map","0:v:0","-map","0:a?","-c:v","libx264","-preset","ultrafast","-crf",String(crf),"-pix_fmt","yuv420p","-c:a","aac","-b:a","128k"];
-      if(resolution!=="original"){
-        const h=Number(resolution);
-        args.push("-vf",`scale=w='min(iw,${h}*dar)':h='min(ih,${h})':force_original_aspect_ratio=decrease`);
-      }
-      args.push("-movflags","+faststart",outName);
-      setStatus(`क्लिप ${i+1}/${total} बनाई जा रही है…\nपेज खुला रखें।`);
-      progress.value=Math.round(i/total*100);
-      const code=await ffmpeg.exec(args);
-      if(code!==0)throw new Error(`क्लिप ${i+1} बनाने में FFmpeg असफल हुआ (code ${code})`);
-      const data=await ffmpeg.readFile(outName),blob=new Blob([data],{type:"video/mp4"}),url=URL.createObjectURL(blob);
-      const item={name:`${base}_clip_${String(i+1).padStart(2,"0")}.mp4`,blob,url};
-      outputs.push(item);renderOutputs();
-      await ffmpeg.deleteFile(outName);
-      progress.value=Math.round((i+1)/total*100);
-    }
-    setStatus(`काम पूरा! ${outputs.length} क्लिप तैयार हैं।`);
-  }catch(error){
-    console.error("Processing error:",error);
-    setStatus("PROCESSING ERROR: "+(error?.message||String(error))+"\nछोटी वीडियो से प्रयास करें और मोबाइल में खाली RAM रखें।");
-  }finally{
-    try{await ffmpeg.deleteFile(inputName);}catch{}
-    busy=false;loadBtn.disabled=false;input.disabled=false;processBtn.disabled=!engineReady||!selectedFile;
-  }
-}
-processBtn.addEventListener("click",compressAndSplit);
-
-function renderOutputs(){
-  results.replaceChildren();
-  if(!outputs.length){results.textContent="अभी कोई क्लिप तैयार नहीं है।";return;}
-  outputs.forEach((clip,i)=>{
-    const box=document.createElement("div");box.className="result";
-    const title=document.createElement("strong");title.textContent=`क्लिप ${i+1}`;
-    const size=document.createElement("div");size.className="muted";size.textContent=formatSize(clip.blob.size);
-    const link=document.createElement("a");link.href=clip.url;link.download=clip.name;link.textContent="⬇ डाउनलोड करें";
-    box.append(title,size,link);results.appendChild(box);
-  });
-  shareBtn.hidden=false;downloadAllBtn.hidden=false;
+function render(){
+ results.replaceChildren();
+ clips.forEach((c,i)=>{const d=document.createElement("div");d.className="result";const t=document.createElement("strong");t.textContent=`क्लिप ${i+1} • ${size(c.blob.size)}`;const a=document.createElement("a");a.href=c.url;a.download=c.name;a.textContent="⬇ डाउनलोड करें";d.append(t,a);results.appendChild(d)});
+ shareBtn.hidden=!clips.length;downloadBtn.hidden=!clips.length;
 }
 shareBtn.addEventListener("click",async()=>{
-  if(!outputs.length)return;
-  try{
-    const clip=outputs[0],file=new File([clip.blob],clip.name,{type:"video/mp4"});
-    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
-      await navigator.share({files:[file],title:"StatusUltra HD",text:"मेरी तैयार वीडियो क्लिप"});
-    }else setStatus("Direct Share उपलब्ध नहीं है। क्लिप डाउनलोड करें और WhatsApp में भेजें।");
-  }catch(error){if(error.name!=="AbortError")setStatus("Share नहीं हुआ: "+(error?.message||String(error)));}
+ if(!clips.length)return;
+ try{const c=clips[0],f=new File([c.blob],c.name,{type:"video/mp4"});if(navigator.share&&navigator.canShare?.({files:[f]}))await navigator.share({files:[f],title:"StatusUltra HD"});else status("Direct share उपलब्ध नहीं है। वीडियो डाउनलोड करके WhatsApp में भेजें।")}
+ catch(e){if(e.name!=="AbortError")status("Share नहीं हो पाया: "+e.message)}
 });
-downloadAllBtn.addEventListener("click",async()=>{
-  for(const clip of outputs){
-    const a=document.createElement("a");a.href=clip.url;a.download=clip.name;
-    document.body.appendChild(a);a.click();a.remove();
-    await new Promise(resolve=>setTimeout(resolve,400));
-  }
-});
+downloadBtn.addEventListener("click",async()=>{for(const c of clips){const a=document.createElement("a");a.href=c.url;a.download=c.name;document.body.appendChild(a);a.click();a.remove();await new Promise(r=>setTimeout(r,350))}});
 </script>
 </body>
 </html>
