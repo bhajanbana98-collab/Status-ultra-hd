@@ -2,121 +2,224 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
-<title>StatusUltra HD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b14">
+
+<title>StatusUltra HD — Video Compressor</title>
 
 <style>
+:root {
+  color-scheme: dark;
+  --bg: #080b14;
+  --panel: #111827;
+  --border: #263247;
+  --text: #f8fafc;
+  --muted: #9caec4;
+  --accent: #8b5cf6;
+  --green: #22c55e;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at top, #182343 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: system-ui, Arial, sans-serif;
+  min-height: 100vh;
 }
 
 header {
-  padding: 24px 20px;
-  border-bottom: 1px solid #292929;
+  padding: 22px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
 }
 
 .logo {
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
 .logo span {
-  color: #35e59a;
+  color: #a78bfa;
 }
 
-.tagline {
-  color: #aaa;
+header p {
+  color: var(--muted);
+  margin: 8px 0 0;
   font-size: 13px;
-  margin-top: 8px;
 }
 
 main {
-  padding: 22px 18px;
+  width: min(100% - 24px, 560px);
+  margin: 24px auto 40px;
+}
+
+.card {
+  background: rgba(17, 24, 39, .96);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 19px;
+  margin-bottom: 16px;
+  box-shadow: 0 12px 35px rgba(0,0,0,.15);
 }
 
 h1 {
-  font-size: 29px;
-  line-height: 1.3;
+  font-size: 23px;
+  margin: 0 0 8px;
 }
 
-h1 span {
-  color: #35e59a;
+h2 {
+  font-size: 17px;
+  margin: 0 0 14px;
 }
 
-.description {
-  color: #aaa;
+p {
   line-height: 1.6;
 }
 
-.upload {
-  border: 2px dashed #35e59a;
-  border-radius: 20px;
-  padding: 30px 15px;
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.dropzone {
+  display: block;
+  padding: 27px 15px;
   text-align: center;
-  margin-top: 25px;
-  background: #111713;
-}
-
-.upload-icon {
-  font-size: 42px;
-}
-
-button, .share {
-  border: 0;
-  border-radius: 12px;
-  padding: 15px;
-  font-size: 15px;
-  font-weight: bold;
+  border: 2px dashed #6252a6;
+  border-radius: 16px;
+  background: #17162b;
   cursor: pointer;
 }
 
-.primary {
-  background: #35e59a;
-  color: #06120b;
+.dropzone strong {
+  display: block;
+  font-size: 17px;
+  margin: 9px 0;
+}
+
+.dropzone span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#videoInput {
+  display: none;
+}
+
+video {
   width: 100%;
-  margin-top: 18px;
+  max-height: 360px;
+  margin-top: 14px;
+  border-radius: 12px;
+  background: #000;
+}
+
+.field {
+  margin: 17px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 650;
 }
 
 select {
   width: 100%;
-  margin-top: 18px;
-  padding: 15px;
-  background: #171717;
+  padding: 13px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  background: #080b14;
   color: white;
-  border: 1px solid #444;
-  border-radius: 12px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-#videoPreview {
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
   width: 100%;
-  margin-top: 15px;
-  border-radius: 12px;
-  display: none;
-  max-height: 400px;
-  background: black;
+  margin-top: 10px;
 }
 
-.note {
-  color: #999;
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: linear-gradient(100deg, #7c3aed, #6366f1);
+  color: white;
+}
+
+.secondary {
+  background: #243149;
+  color: white;
+}
+
+.whatsapp {
+  background: #168447;
+  color: white;
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  accent-color: var(--green);
+  margin: 12px 0 5px;
+}
+
+.status {
+  font-size: 13px;
+  color: #c4b5fd;
+  overflow-wrap: anywhere;
+}
+
+.warning {
+  font-size: 12px;
+  color: #fbbf24;
+  line-height: 1.6;
+}
+
+.privacy {
+  border: 1px solid #166534;
+  background: #0c251b;
+  color: #bbf7d0;
+  padding: 12px;
+  border-radius: 12px;
   font-size: 12px;
   line-height: 1.6;
-  margin-top: 20px;
+}
+
+.result {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.result a {
+  display: block;
+  margin-top: 8px;
+  color: #c4b5fd;
+  overflow-wrap: anywhere;
 }
 
 footer {
-  padding: 20px;
-  color: #777;
-  font-size: 12px;
   text-align: center;
+  color: var(--muted);
+  padding: 0 15px 30px;
+  font-size: 12px;
 }
 </style>
 </head>
@@ -125,134 +228,460 @@ footer {
 
 <header>
   <div class="logo">Status<span>Ultra</span> HD</div>
-  <div class="tagline">Your moments. Beautifully clear.</div>
+  <p>Compress • Split • Download • Share</p>
 </header>
 
 <main>
-  <h1>Make your status<br><span>look better.</span></h1>
 
-  <p class="description">
-    Prepare wedding reels and videos for WhatsApp Status
-    with quality-conscious video compression.
-  </p>
+  <section class="card">
+    <h1>Video Compressor</h1>
 
-  <section class="upload">
-    <div class="upload-icon">🎬</div>
-    <h3>Select your video</h3>
-    <p class="description">Choose a wedding reel from your gallery.</p>
+    <p class="muted">
+      अपने वीडियो को कंप्रेस करें और WhatsApp Status
+      के लिए छोटी-छोटी क्लिप बनाएँ।
+    </p>
+
+    <label class="dropzone" for="videoInput">
+      <div style="font-size:36px">🎬</div>
+      <strong>वीडियो चुनें</strong>
+      <span>MP4, MOV, WebM आदि • अधिकतम 200 MB</span>
+    </label>
 
     <input
       type="file"
       id="videoInput"
       accept="video/*"
-      hidden
     >
 
-    <button
-      class="primary"
-      onclick="document.getElementById('videoInput').click()">
-      Choose Video
+    <div id="fileInfo" class="muted"></div>
+
+    <video id="preview" controls playsinline hidden></video>
+  </section>
+
+  <section class="card">
+
+    <h2>Export Settings</h2>
+
+    <div class="field">
+      <label for="resolution">वीडियो क्वालिटी</label>
+      <select id="resolution">
+        <option value="1080">1080p — Full HD</option>
+        <option value="720">720p — HD</option>
+        <option value="original">Original Resolution</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="segmentDuration">हर क्लिप की अवधि</label>
+      <select id="segmentDuration">
+        <option value="30">30 सेकंड</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="quality">Compression Quality</label>
+      <select id="quality">
+        <option value="23">High Quality — बड़ी फाइल हो सकती है</option>
+        <option value="26" selected>Balanced — संतुलित विकल्प</option>
+        <option value="29">Smaller File — ज्यादा कंप्रेशन</option>
+      </select>
+    </div>
+
+    <div class="privacy">
+      🔒 Privacy: वीडियो प्रोसेसिंग आपके ब्राउज़र में होती है।
+      वीडियो को प्रोसेस करने के लिए हमारे सर्वर पर अपलोड नहीं
+      किया जाता। FFmpeg इंजन पहली बार इंटरनेट से डाउनलोड होता है।
+    </div>
+
+    <button id="loadBtn" class="secondary">
+      1. Video Engine Load करें
+    </button>
+
+    <button id="processBtn" class="primary" disabled>
+      2. Compress और Split करें
+    </button>
+
+    <progress id="progress" value="0" max="100"></progress>
+
+    <div id="status" class="status">
+      पहले वीडियो चुनें और फिर Video Engine Load करें।
+    </div>
+
+    <p class="warning">
+      नोट: FFmpeg इंजन पहली बार लगभग 30 MB या उससे अधिक
+      डाउनलोड कर सकता है। 200 MB की वीडियो को प्रोसेस करने
+      में अतिरिक्त RAM लग सकती है। सभी मोबाइल पर सफल
+      प्रोसेसिंग की गारंटी नहीं है।
+    </p>
+
+  </section>
+
+  <section class="card">
+    <h2>आपकी तैयार क्लिप्स</h2>
+
+    <div id="results" class="muted">
+      अभी कोई क्लिप तैयार नहीं है।
+    </div>
+
+    <button id="shareAllBtn" class="whatsapp" hidden>
+      WhatsApp पर पहली क्लिप शेयर करें
+    </button>
+
+    <button id="downloadAllBtn" class="secondary" hidden>
+      सभी क्लिप डाउनलोड करें
     </button>
   </section>
 
-  <video id="videoPreview" controls playsinline></video>
-
-  <label for="quality">Export quality preference</label>
-
-  <select id="quality">
-    <option value="original">Original quality</option>
-    <option value="1080">1080p Full HD</option>
-    <option value="720">720p HD</option>
-  </select>
-
-  <button class="primary" onclick="prepareVideo()">
-    Prepare Video
-  </button>
-
-  <button
-    class="primary"
-    onclick="shareVideo()"
-    style="background:#202820;color:white">
-    Share to WhatsApp
-  </button>
-
-  <p id="status" class="note">
-    Select a video to get started.
-  </p>
-
-  <p class="note">
-    Note: This is the first interface prototype.
-    Actual video compression and export will be added
-    in a later development step.
-  </p>
 </main>
 
 <footer>
-  StatusUltra HD · Version 0.1
+  StatusUltra HD • Video processing in your browser
 </footer>
 
-<script>
-let selectedVideo = null;
-let videoUrl = null;
+<script type="module">
+import { FFmpeg } from
+  "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js";
 
-const input = document.getElementById('videoInput');
-const preview = document.getElementById('videoPreview');
-const statusText = document.getElementById('status');
+import {
+  fetchFile,
+  toBlobURL
+} from
+  "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/esm/index.js";
 
-input.addEventListener('change', function () {
-  if (!this.files || !this.files[0]) return;
+const $ = id => document.getElementById(id);
 
-  selectedVideo = this.files[0];
+const input = $("videoInput");
+const preview = $("preview");
+const fileInfo = $("fileInfo");
+const loadBtn = $("loadBtn");
+const processBtn = $("processBtn");
+const statusBox = $("status");
+const progress = $("progress");
+const results = $("results");
+const shareBtn = $("shareAllBtn");
+const downloadAllBtn = $("downloadAllBtn");
 
-  if (videoUrl) URL.revokeObjectURL(videoUrl);
+const MAX_SIZE = 200 * 1024 * 1024;
 
-  videoUrl = URL.createObjectURL(selectedVideo);
-  preview.src = videoUrl;
-  preview.style.display = 'block';
+let selectedFile = null;
+let ffmpeg = null;
+let engineReady = false;
+let busy = false;
+let outputs = [];
+let progressHandler = null;
+let logHandler = null;
 
-  const sizeMB = (selectedVideo.size / 1024 / 1024).toFixed(1);
+function setStatus(message) {
+  statusBox.textContent = message;
+}
 
-  statusText.textContent =
-    'Video selected: ' + sizeMB + ' MB. ' +
-    'Actual compression is not enabled yet.';
+function formatSize(bytes) {
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+}
+
+function clearOutputs() {
+  outputs.forEach(item => URL.revokeObjectURL(item.url));
+  outputs = [];
+  results.replaceChildren();
+  results.textContent = "अभी कोई क्लिप तैयार नहीं है।";
+  shareBtn.hidden = true;
+  downloadAllBtn.hidden = true;
+}
+
+input.addEventListener("change", () => {
+  const file = input.files?.[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("video/")) {
+    setStatus("कृपया एक वीडियो फाइल चुनें।");
+    input.value = "";
+    return;
+  }
+
+  if (file.size > MAX_SIZE) {
+    setStatus("वीडियो 200 MB से बड़ी है। कृपया छोटी फाइल चुनें।");
+    input.value = "";
+    return;
+  }
+
+  selectedFile = file;
+  clearOutputs();
+
+  if (preview.src) URL.revokeObjectURL(preview.src);
+
+  preview.src = URL.createObjectURL(file);
+  preview.hidden = false;
+
+  fileInfo.textContent =
+    `${file.name} • ${formatSize(file.size)}`;
+
+  processBtn.disabled = !engineReady || busy;
+  setStatus("वीडियो चुन लिया गया। अब Video Engine Load करें।");
 });
 
-function prepareVideo() {
-  if (!selectedVideo) {
-    statusText.textContent = 'Please choose a video first.';
-    return;
-  }
+async function loadEngine() {
+  if (engineReady || busy) return;
 
-  statusText.textContent =
-    'Preview ready. Real video compression and export ' +
-    'will be implemented in the next development stage.';
-}
+  busy = true;
+  loadBtn.disabled = true;
+  input.disabled = true;
 
-async function shareVideo() {
-  if (!selectedVideo) {
-    statusText.textContent = 'Please choose a video first.';
-    return;
-  }
+  setStatus("Video Engine डाउनलोड हो रहा है। इसमें समय लग सकता है...");
 
   try {
-    if (navigator.canShare &&
-        navigator.canShare({ files: [selectedVideo] }) &&
-        navigator.share) {
-      await navigator.share({
-        files: [selectedVideo],
-        title: 'StatusUltra HD'
-      });
-    } else {
-      statusText.textContent =
-        'Direct file sharing is not supported in this browser yet.';
-    }
+    ffmpeg = new FFmpeg();
+
+    progressHandler = ({ progress: p }) => {
+      if (Number.isFinite(p)) {
+        progress.value = Math.max(
+          0,
+          Math.min(100, Math.round(p * 100))
+        );
+      }
+    };
+
+    logHandler = ({ message }) => {
+      console.log("[FFmpeg]", message);
+    };
+
+    ffmpeg.on("progress", progressHandler);
+    ffmpeg.on("log", logHandler);
+
+    const baseURL =
+      "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
+
+    await ffmpeg.load({
+      coreURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.js`,
+        "text/javascript"
+      ),
+      wasmURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.wasm`,
+        "application/wasm"
+      )
+    });
+
+    engineReady = true;
+    processBtn.disabled = !selectedFile;
+    loadBtn.textContent = "Video Engine तैयार है ✓";
+
+    setStatus("Engine तैयार है। अब Compress और Split करें।");
+
   } catch (error) {
-    if (error.name !== 'AbortError') {
-      statusText.textContent = 'Sharing could not be started.';
+    console.error(error);
+
+    setStatus(
+      "Engine Load नहीं हुआ। इंटरनेट जाँचें और पेज रिफ्रेश करके दोबारा प्रयास करें।"
+    );
+
+    if (ffmpeg) {
+      try { await ffmpeg.terminate(); } catch {}
     }
+
+    ffmpeg = null;
+    engineReady = false;
+    loadBtn.textContent = "दोबारा Engine Load करें";
+
+  } finally {
+    busy = false;
+    loadBtn.disabled = false;
+    input.disabled = false;
+    processBtn.disabled = !engineReady || !selectedFile;
   }
 }
+
+loadBtn.addEventListener("click", loadEngine);
+
+function safeExtension(name) {
+  const ext = name.split(".").pop()?.toLowerCase();
+
+  if (["mp4", "mov", "mkv", "webm", "m4v"].includes(ext)) {
+    return ext;
+  }
+
+  return "mp4";
+}
+
+async function compressAndSplit() {
+  if (!selectedFile || !engineReady || busy) return;
+
+  busy = true;
+  processBtn.disabled = true;
+  loadBtn.disabled = true;
+  input.disabled = true;
+  progress.value = 0;
+
+  clearOutputs();
+
+  const inputName = `input.${safeExtension(selectedFile.name)}`;
+
+  try {
+    setStatus("वीडियो पढ़ी जा रही है...");
+    await ffmpeg.writeFile(inputName, await fetchFile(selectedFile));
+
+    const resolution = $("resolution").value;
+    const crf = $("quality").value;
+    const seconds = Number($("segmentDuration").value);
+
+    const args = [
+      "-hide_banner",
+      "-y",
+      "-i", inputName,
+      "-map", "0:v:0",
+      "-map", "0:a?",
+      "-c:v", "libx264",
+      "-preset", "ultrafast",
+      "-crf", crf,
+      "-pix_fmt", "yuv420p",
+      "-c:a", "aac",
+      "-b:a", "128k",
+      "-force_key_frames", `expr:gte(t,n_forced*${seconds})`,
+      "-f", "segment",
+      "-segment_time", String(seconds),
+      "-segment_time_delta", "0.05",
+      "-reset_timestamps", "1"
+    ];
+
+    if (resolution !== "original") {
+      const maxHeight = Number(resolution);
+      const maxWidth = Math.round(maxHeight * 9 / 16);
+
+      // Keep aspect ratio and fit portrait or landscape video
+      // inside a maximum 16:9 or 9:16 frame.
+      args.push(
+        "-vf",
+        `scale=w='min(iw,${maxHeight})':h='min(ih,${maxHeight * 16 / 9})':force_original_aspect_ratio=decrease`
+      );
+    }
+
+    args.push("status_%03d.mp4");
+
+    setStatus("वीडियो प्रोसेस हो रही है। पेज बंद न करें...");
+    await ffmpeg.exec(args);
+
+    const files = await ffmpeg.listDir("/");
+
+    const clipNames = files
+      .map(entry => entry.name)
+      .filter(name => /^status_\d+\.mp4$/.test(name))
+      .sort();
+
+    if (!clipNames.length) {
+      throw new Error("कोई आउटपुट क्लिप नहीं बनी।");
+    }
+
+    for (let i = 0; i < clipNames.length; i++) {
+      const data = await ffmpeg.readFile(clipNames[i]);
+      const blob = new Blob([data], { type: "video/mp4" });
+      const url = URL.createObjectURL(blob);
+
+      outputs.push({
+        name: `StatusUltra_HD_${String(i + 1).padStart(2, "0")}.mp4`,
+        url,
+        blob
+      });
+
+      const item = document.createElement("div");
+      item.className = "result";
+
+      const title = document.createElement("strong");
+      title.textContent = `क्लिप ${i + 1}`;
+
+      const size = document.createElement("div");
+      size.className = "muted";
+      size.textContent = formatSize(blob.size);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = outputs[i].name;
+      link.textContent = "⬇ डाउनलोड करें";
+
+      item.append(title, size, link);
+      results.appendChild(item);
+    }
+
+    shareBtn.hidden = false;
+    downloadAllBtn.hidden = false;
+
+    progress.value = 100;
+
+    setStatus(
+      `काम पूरा! ${outputs.length} क्लिप तैयार हैं। अब डाउनलोड करें या WhatsApp पर शेयर करें।`
+    );
+
+    // Remove temporary files to release FFmpeg's virtual filesystem memory.
+    try { await ffmpeg.deleteFile(inputName); } catch {}
+
+    for (const name of clipNames) {
+      try { await ffmpeg.deleteFile(name); } catch {}
+    }
+
+  } catch (error) {
+    console.error(error);
+
+    setStatus(
+      "प्रोसेसिंग फेल हुई। मोबाइल में RAM कम हो सकती है या वीडियो का फॉर्मेट समर्थित नहीं है। छोटे वीडियो से दोबारा प्रयास करें।"
+    );
+
+  } finally {
+    busy = false;
+    loadBtn.disabled = false;
+    input.disabled = false;
+    processBtn.disabled = !engineReady || !selectedFile;
+  }
+}
+
+processBtn.addEventListener("click", compressAndSplit);
+
+shareBtn.addEventListener("click", async () => {
+  if (!outputs.length) return;
+
+  const first = outputs[0];
+
+  try {
+    const file = new File(
+      [first.blob],
+      first.name,
+      { type: "video/mp4" }
+    );
+
+    if (
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({ files: [file] })
+    ) {
+      await navigator.share({
+        files: [file],
+        title: "StatusUltra HD",
+        text: "मेरी तैयार वीडियो क्लिप"
+      });
+    } else {
+      setStatus(
+        "इस ब्राउज़र में सीधे वीडियो शेयर करना समर्थित नहीं है। पहले क्लिप डाउनलोड करें, फिर WhatsApp खोलकर वीडियो चुनें।"
+      );
+    }
+
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      setStatus("शेयर नहीं हो पाया। पहले वीडियो डाउनलोड करके WhatsApp पर भेजें।");
+    }
+  }
+});
+
+downloadAllBtn.addEventListener("click", async () => {
+  for (const item of outputs) {
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.download = item.name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // Avoid triggering many downloads at exactly the same time.
+    await new Promise(resolve => setTimeout(resolve, 350));
+  }
+});
 </script>
 
 </body>
-    </html>
+</html>
