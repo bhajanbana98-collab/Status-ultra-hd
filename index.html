@@ -470,9 +470,7 @@ async function loadEngine() {
   } catch (error) {
     console.error(error);
 
-    setStatus(
-      "Engine Load नहीं हुआ। इंटरनेट जाँचें और पेज रिफ्रेश करके दोबारा प्रयास करें।"
-    );
+    setStatus("Engine Error: " + (error?.message || String(error)));
 
     if (ffmpeg) {
       try { await ffmpeg.terminate(); } catch {}
