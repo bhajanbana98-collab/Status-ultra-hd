@@ -1,111 +1,133 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#efffe8">
-<title>StatusUltra HD — Video Studio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10180f">
+<title>Status Ultra HD — FFmpeg Studio</title>
 <style>
-:root{color-scheme:light;--green:#087f3d;--deep:#075b2c;--yellow:#ffe56b;--bg:#f5ffef;--card:#fff;--line:#d7e9d6;--text:#123320;--muted:#567261}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#f5ffef,#fffbe5);color:var(--text);font:16px/1.55 system-ui,Arial,sans-serif}
-header{padding:24px 16px 20px;text-align:center;background:linear-gradient(120deg,#087f3d,#159447);color:white;border-bottom:5px solid var(--yellow)}
-.logo{font-size:30px;font-weight:900;letter-spacing:-.8px}.logo span{color:var(--yellow)}header p{margin:6px 0 0;color:#e7ffe8;font-size:13px}
-main{width:min(100% - 24px,650px);margin:22px auto 36px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:19px;margin-bottom:16px;box-shadow:0 10px 28px #164b2110}
-h1{font-size:23px;margin:0 0 8px}h2{font-size:18px;margin:0 0 14px}.muted{color:var(--muted);font-size:13px}
-.dropzone{display:block;text-align:center;padding:25px 12px;border:2px dashed #8ec99c;border-radius:16px;background:#f3fff1;cursor:pointer}.dropzone strong{display:block;margin:8px 0;font-size:17px}.dropzone span{font-size:12px;color:var(--muted)}#videoInput{display:none}
-video{width:100%;max-height:340px;margin-top:14px;border-radius:13px;background:#102015}
-.field{margin:16px 0}label{display:block;font-size:14px;font-weight:750;margin-bottom:7px}select{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fbfff8;color:var(--text);font:inherit}
-button{width:100%;margin-top:10px;padding:14px;border:0;border-radius:13px;background:var(--green);color:white;font:inherit;font-weight:800;cursor:pointer}button.secondary{background:#edf8e7;color:var(--deep);border:1px solid #cce6c9}button.share{background:#168447}button:disabled{opacity:.45;cursor:not-allowed}
-.privacy{padding:12px;border-radius:13px;background:#efffee;border:1px solid #a8dcb0;color:#19552c;font-size:12px;line-height:1.6}.status{white-space:pre-wrap;overflow-wrap:anywhere;color:#145b2d;font-size:13px;margin-top:12px}.warning{font-size:12px;color:#806500;line-height:1.6}progress{width:100%;height:12px;accent-color:var(--green);margin-top:12px}
-.result{border:1px solid var(--line);padding:12px;border-radius:13px;margin-top:10px}.result a{display:block;margin-top:8px;color:#087f3d;font-weight:800;overflow-wrap:anywhere}
-footer{text-align:center;padding:0 14px 28px;color:var(--muted);font-size:12px}
+:root{--bg:#0b100c;--panel:#141d16;--panel2:#1b271d;--line:#2c3b2d;--green:#a6ff38;--yellow:#ffd84d;--text:#f4f8f1;--muted:#a7b4a5;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1c2a18 0,#0b100c 55%);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:980px;margin:auto;padding:18px 14px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.brand{display:flex;gap:11px;align-items:center}.logo{width:45px;height:45px;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--yellow));display:grid;place-items:center;color:#0b100c;font-size:23px;font-weight:1000;box-shadow:0 0 30px #a6ff3830}.brand h1{font-size:19px;margin:0;letter-spacing:.2px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.badge{border:1px solid #3b5134;background:#1b2a19;color:var(--green);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+.hero{border:1px solid #3b4d2e;background:linear-gradient(135deg,#1b2a18dd,#192016dd);border-radius:25px;padding:24px;position:relative;overflow:hidden;margin-bottom:16px}.hero:after{content:"";position:absolute;width:240px;height:240px;right:-80px;top:-120px;border-radius:50%;background:#a6ff3810;border:1px solid #a6ff3820}.eyebrow{color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:2px}.hero h2{font-size:clamp(26px,6vw,43px);line-height:1.04;margin:10px 0}.hero h2 span{color:var(--green)}.hero p{color:#bdc9b8;max-width:620px;margin:10px 0 0}.grid{display:grid;grid-template-columns:1fr;gap:14px}.card{background:linear-gradient(180deg,#172119,#111812);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 10px 35px #0002}.card h3{font-size:16px;margin:0 0 12px;display:flex;align-items:center;gap:8px}.num{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#a6ff381c;color:var(--green);font-weight:900;font-size:12px}
+.drop{border:1.5px dashed #52684b;border-radius:16px;padding:24px 15px;text-align:center;background:#0b120d;cursor:pointer;transition:.2s}.drop.drag{border-color:var(--green);background:#172719}.drop .icon{font-size:35px}.drop strong{display:block;margin:7px 0 3px;font-size:16px}.drop small{color:var(--muted)}input[type=file]{display:none}.filemeta{margin-top:12px;padding:12px;border-radius:12px;background:#202c20;display:none;word-break:break-word}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field select,.field input[type=number]{width:100%;padding:12px;background:#0c130d;color:var(--text);border:1px solid #344633;border-radius:11px;font:inherit;outline:none}.field select:focus,.field input:focus{border-color:var(--green)}.checkrow{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-top:13px}.checkrow input{accent-color:var(--green);width:17px;height:17px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:900;font-size:14px;cursor:pointer;transition:.15s}.btn:disabled{opacity:.45;cursor:not-allowed}.primary{background:linear-gradient(135deg,var(--green),var(--yellow));color:#10170d;flex:1}.secondary{background:#253325;border:1px solid #3d5139;color:var(--text)}.danger{background:#351b1b;border:1px solid #603333;color:#ffc1c1}.status{display:flex;align-items:center;gap:9px;margin-top:14px;color:var(--muted);font-size:13px}.dot{width:8px;height:8px;border-radius:50%;background:#667362;flex-shrink:0}.dot.ok{background:var(--green);box-shadow:0 0 12px #a6ff3880}.dot.err{background:var(--red)}.progressbox{margin-top:12px;display:none}.progressline{height:9px;background:#273228;border-radius:99px;overflow:hidden}.progressline span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--yellow));transition:width .2s}.progresslabels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}.results{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}.clip{background:#0c130e;border:1px solid #30402e;border-radius:15px;padding:12px}.clip video{width:100%;max-height:360px;background:#000;border-radius:10px}.clip h4{margin:10px 0 4px}.clip p{font-size:12px;color:var(--muted);margin:0 0 10px}.clip .actions{margin-top:8px}.notice{font-size:12px;color:#a9b8a5;line-height:1.5;margin-top:12px}.log{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#b7c9b2;white-space:pre-wrap;background:#080d09;border:1px solid #273427;border-radius:12px;padding:12px;max-height:170px;overflow:auto;margin-top:12px;display:none}.foot{text-align:center;color:#7f8d7b;font-size:11px;margin-top:22px}@media(min-width:760px){.wrap{padding:26px 22px 50px}.grid{grid-template-columns:1.1fr .9fr}.hero{padding:32px}.results{grid-template-columns:repeat(2,minmax(0,1fr))}.brand h1{font-size:21px}} 
 </style>
 </head>
 <body>
-<header><div class="logo">Status<span>Ultra</span> HD</div><p>Compress • Split • Download • Share</p></header>
-<main>
-<section class="card">
-<h1>Video Studio</h1><p class="muted">कई सामान्य वीडियो फ़ॉर्मेट पढ़ने, कम्प्रेस करने और Status clips बनाने की कोशिश करता है।</p>
-<label class="dropzone" for="videoInput"><div style="font-size:35px">🎬</div><strong>वीडियो चुनें</strong><span>MP4, MOV, MKV, WebM, TS आदि • अधिकतम 200 MB</span></label>
-<input id="videoInput" type="file" accept="video/*,.mp4,.m4v,.mov,.mkv,.webm,.ts,.m2ts,.mts,.avi,.3gp,.ogv,.mpeg,.mpg,.m3u8">
-<div id="fileInfo" class="muted"></div><video id="preview" controls playsinline hidden></video>
+<div class="wrap">
+<header class="top"><div class="brand"><div class="logo">▶</div><div><h1>STATUS <span style="color:var(--green)">ULTRA HD</span></h1><p>FFmpeg Video Studio · Local processing</p></div></div><div class="badge">● FFmpeg ENGINE</div></header>
+<section class="hero"><div class="eyebrow">BULLET TRAIN VIDEO WORKFLOW</div><h2>Make every status<br><span>look sharper.</span></h2><p>Cut clips, export MP4, and prepare portrait videos for WhatsApp Status. Files stay on your device while processing.</p></section>
+<div class="grid">
+<section class="card"><h3><span class="num">01</span> Choose your video</h3>
+<label class="drop" id="drop"><input id="file" type="file" accept="video/*,.mp4,.mov,.webm,.mkv,.avi,.m4v,.3gp"><span class="icon">📹</span><strong>Tap to select or drop a video</strong><small>MP4 is recommended · Other formats depend on codec support</small></label>
+<div class="filemeta" id="filemeta"></div>
+<div class="status"><span class="dot" id="engineDot"></span><span id="engineStatus">Engine not loaded yet</span></div>
+<div class="actions"><button class="btn secondary" id="checkBtn">Check engine</button><button class="btn secondary" id="clearBtn">Clear</button></div>
 </section>
-<section class="card">
-<h2>Export Settings</h2>
-<div class="field"><label for="resolution">आउटपुट क्वालिटी</label><select id="resolution"><option value="1080" selected>1080p — Full HD (WhatsApp Status Recommended)</option><option value="720">720p — HD</option><option value="original">Original Resolution</option></select></div>
-<div class="field"><label for="segment">हर क्लिप की अवधि</label><select id="segment"><option value="30" selected>30 सेकंड</option><option value="15">15 सेकंड</option><option value="60">60 सेकंड</option></select></div>
-<div class="field"><label for="quality">Compression Quality</label><select id="quality"><option value="high" selected>High Quality (WhatsApp Status)</option><option value="balanced">Balanced</option><option value="small">Smaller File</option></select></div>
-<div class="privacy">✅ WhatsApp Status preset: 1080p Full HD + High Quality डिफ़ॉल्ट है। इससे export quality बेहतर रखने में मदद मिलेगी, लेकिन WhatsApp अपलोड के समय अपनी तरफ़ से compression कर सकता है।<br><br>🔒 वीडियो सर्वर पर अपलोड नहीं होती; प्रोसेसिंग ब्राउज़र में होती है। Mediabunny कई container formats पढ़ सकता है, लेकिन codec सपोर्ट ब्राउज़र/डिवाइस पर निर्भर करता है। हर फ़ाइल चलने की गारंटी नहीं है।</div>
-<button id="supportBtn" class="secondary">Mediabunny सपोर्ट जाँचें</button><button id="processBtn" disabled>Compress और Split करें</button>
-<progress id="progress" value="0" max="100"></progress><div id="status" class="status">पहले वीडियो चुनें, फिर सपोर्ट जाँचें।</div>
-<p class="warning">नोट: बहुत बड़ी वीडियो में मोबाइल RAM लग सकती है। 200 MB से छोटी वीडियो से शुरुआत करें। पहली बार लाइब्रेरी इंटरनेट से डाउनलोड होगी।</p>
+<section class="card"><h3><span class="num">02</span> Export settings</h3>
+<div class="row">
+<div class="field"><label for="duration">Clip length</label><select id="duration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>60 seconds</option><option value="all">Full video (no split)</option></select></div>
+<div class="field"><label for="resolution">Resolution</label><select id="resolution"><option value="1080" selected>1080p Full HD</option><option value="720">720p HD</option><option value="original">Original height</option></select></div>
+<div class="field"><label for="quality">Quality preset</label><select id="quality"><option value="high" selected>High quality</option><option value="balanced">Balanced</option><option value="small">Smaller file</option></select></div>
+<div class="field"><label for="bitrate">Video bitrate</label><select id="bitrate"><option value="8" selected>8 Mbps</option><option value="12">12 Mbps</option><option value="5">5 Mbps</option></select></div>
+</div>
+<label class="checkrow"><input type="checkbox" id="portrait" checked> Fit into 9:16 portrait canvas (1080 × 1920)</label>
+<label class="checkrow"><input type="checkbox" id="audio" checked> Keep audio when available</label>
+<label class="checkrow"><input type="checkbox" id="fast"> Prefer faster processing (may reduce quality)</label>
+<div class="actions"><button class="btn primary" id="startBtn" disabled>⚡ Start processing</button><button class="btn danger" id="cancelBtn" disabled>Cancel</button></div>
+<div class="progressbox" id="progressbox"><div class="progressline"><span id="progress"></span></div><div class="progresslabels"><span id="progressText">Preparing…</span><span id="progressPct">0%</span></div></div>
+<div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Select a video to begin.</span></div>
 </section>
-<section class="card"><h2>तैयार क्लिप्स</h2><div id="results" class="muted">अभी कोई क्लिप तैयार नहीं है।</div><button id="shareBtn" class="share" hidden>पहली क्लिप Share करें</button><button id="downloadBtn" class="secondary" hidden>सभी क्लिप डाउनलोड करें</button></section>
-</main>
-<footer>StatusUltra HD • Green + Yellow Edition</footer>
+</div>
+<section class="card" style="margin-top:14px"><h3><span class="num">03</span> Exported clips</h3><div id="results" class="results"><p class="notice">Your processed MP4 clips will appear here.</p></div><p class="notice">WhatsApp can recompress uploaded Status videos. This tool aims for a clean MP4 export; it cannot control WhatsApp's final compression. Processing speed depends on your phone, browser, video and codec support.</p><div id="log" class="log"></div></section>
+<div class="foot">STATUS ULTRA HD · FFmpeg.wasm · Green × Yellow Edition</div>
+</div>
 <script type="module">
-import { Input, BlobSource, Output, BufferTarget, Mp4OutputFormat, Conversion, ALL_FORMATS, Quality, getFirstEncodableVideoCodec, getFirstEncodableAudioCodec } from "https://cdn.jsdelivr.net/npm/mediabunny@1.20.0/+esm";
-
-const $=id=>document.getElementById(id);
-const fileInput=$("videoInput"),preview=$("preview"),fileInfo=$("fileInfo"),supportBtn=$("supportBtn"),processBtn=$("processBtn"),statusBox=$("status"),progress=$("progress"),results=$("results"),shareBtn=$("shareBtn"),downloadBtn=$("downloadBtn");
-const MAX=200*1024*1024;let selected=null,ready=false,busy=false,clips=[];
-function status(s){statusBox.textContent=s}function size(n){return (n/1048576).toFixed(1)+" MB"}
-function clearClips(){clips.forEach(c=>URL.revokeObjectURL(c.url));clips=[];results.replaceChildren();results.textContent="अभी कोई क्लिप तैयार नहीं है।";shareBtn.hidden=true;downloadBtn.hidden=true}
-fileInput.addEventListener("change",()=>{
- const f=fileInput.files?.[0];if(!f)return;
- if(f.size>MAX){status("वीडियो 200 MB से बड़ी है। छोटी फ़ाइल चुनें।");fileInput.value="";return}
- selected=f;clearClips();if(preview.src)URL.revokeObjectURL(preview.src);preview.src=URL.createObjectURL(f);preview.hidden=false;fileInfo.textContent=`${f.name} • ${size(f.size)}`;processBtn.disabled=!ready;status("वीडियो चुनी गई। अब सपोर्ट जाँचें या प्रोसेस करें।")
-});
-async function makeInput(file){return new Input({source:new BlobSource(file),formats:ALL_FORMATS})}
-supportBtn.addEventListener("click",async()=>{
- supportBtn.disabled=true;status("Mediabunny और browser encoder सपोर्ट जाँची जा रही है…");
+const $ = id => document.getElementById(id);
+const fileInput=$('file'), drop=$('drop'), startBtn=$('startBtn'), cancelBtn=$('cancelBtn');
+let selectedFile=null, ffmpeg=null, loaded=false, busy=false, cancelRequested=false, outputUrls=[];
+const logBox=$('log');
+function log(s){logBox.style.display='block';logBox.textContent += `[${new Date().toLocaleTimeString()}] ${s}\\n`;logBox.scrollTop=logBox.scrollHeight;}
+function status(s,type=''){ $('statusText').textContent=s; $('statusDot').className='dot'+(type?' '+type:'');}
+function engineStatus(s,type=''){ $('engineStatus').textContent=s; $('engineDot').className='dot'+(type?' '+type:'');}
+function setProgress(p,label){p=Math.max(0,Math.min(100,p));$('progressbox').style.display='block';$('progress').style.width=p+'%';$('progressPct').textContent=Math.round(p)+'%';$('progressText').textContent=label;}
+function cleanOutputs(){for(const u of outputUrls)URL.revokeObjectURL(u);outputUrls=[];$('results').innerHTML='<p class="notice">Your processed MP4 clips will appear here.</p>';}
+function setFile(file){if(!file)return;if(!file.type.startsWith('video/')&&!/\.(mp4|mov|webm|mkv|avi|m4v|3gp)$/i.test(file.name)){status('Please choose a video file.','err');return;}selectedFile=file;$('filemeta').style.display='block';$('filemeta').textContent=`${file.name} · ${(file.size/1024/1024).toFixed(1)} MB`;startBtn.disabled=false;status('Video selected. Check engine, then start processing.','ok');cleanOutputs();}
+fileInput.addEventListener('change',e=>setFile(e.target.files?.[0]));
+drop.addEventListener('click',()=>fileInput.click());
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});
+drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');setFile(e.dataTransfer.files?.[0])});
+$('clearBtn').addEventListener('click',()=>{if(busy)return;selectedFile=null;fileInput.value='';$('filemeta').style.display='none';cleanOutputs();status('Select a video to begin.');startBtn.disabled=true;});
+$('checkBtn').addEventListener('click',async()=>{try{engineStatus('Checking browser support…');const webcodecs=typeof VideoEncoder!=='undefined'&&typeof VideoDecoder!=='undefined';let avc='unknown';if(typeof VideoEncoder!=='undefined'){try{const c=await VideoEncoder.isConfigSupported({codec:'avc1.42E01E',width:640,height:360,bitrate:1000000});avc=c.supported?'supported':'unsupported';}catch{avc='unknown';}}engineStatus(`WebCodecs: ${webcodecs?'available':'not available'} · H.264 encoder: ${avc}`,webcodecs&&avc==='supported'?'ok':'');log(`Browser check: WebCodecs=${webcodecs}; H264=${avc}`);if(!loaded)status('Browser check done. FFmpeg loads when processing starts.');}catch(e){engineStatus('Capability check failed','err');log(String(e));}});
+$('cancelBtn').addEventListener('click',()=>{cancelRequested=true;cancelBtn.disabled=true;status('Cancellation requested…');if(ffmpeg){try{ffmpeg.terminate();}catch{}}});
+function setBusy(v){busy=v;startBtn.disabled=v||!selectedFile;cancelBtn.disabled=!v;fileInput.disabled=v;$('checkBtn').disabled=v;$('clearBtn').disabled=v;}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function addClip(blob,name,duration,w,h){const url=URL.createObjectURL(blob);outputUrls.push(url);const div=document.createElement('div');div.className='clip';div.innerHTML=`<video controls playsinline preload="metadata" src="${url}"></video><h4>${esc(name)}</h4><p>${duration.toFixed(1)} sec · ${w}×${h} · ${(blob.size/1024/1024).toFixed(2)} MB</p><div class="actions"><a class="btn primary" style="text-decoration:none;text-align:center" href="${url}" download="${esc(name)}">⬇ Download MP4</a><button class="btn secondary share">Share</button></div>`;div.querySelector('.share').addEventListener('click',async()=>{try{const f=new File([blob],name,{type:'video/mp4'});if(navigator.canShare&&navigator.canShare({files:[f]})&&navigator.share){await navigator.share({files:[f],title:name,text:'Status Ultra HD video'});}else{status('Direct file sharing is unavailable here. Download the MP4 and share it in WhatsApp.');}}catch(e){if(e.name!=='AbortError')status('Share failed. Download the MP4 and share it manually.','err');}});$('results').appendChild(div);}
+async function start(){
+ if(!selectedFile||busy)return;cancelRequested=false;cleanOutputs();setBusy(true);logBox.textContent='';status('Loading FFmpeg engine…');setProgress(0,'Loading FFmpeg core…');
+ let localFfmpeg=null, inName='input'+(selectedFile.name.match(/\.[a-z0-9]+$/i)?.[0]||'.mp4');
  try{
-  const v=await getFirstEncodableVideoCodec(["avc","hevc","vp9","vp8","av1"],{width:1280,height:720});
-  if(!v)throw new Error("इस डिवाइस पर समर्थित वीडियो encoder नहीं मिला। Chrome अपडेट करें या दूसरा डिवाइस आज़माएँ।");
-  ready=true;processBtn.disabled=!selected;status("सपोर्ट जाँच पूरी। उपलब्ध video encoder: "+v+". चुनी हुई फ़ाइल का codec अलग से जाँचा जाएगा।");
- }catch(e){ready=false;processBtn.disabled=true;status("SUPPORT ERROR: "+(e?.message||String(e)));}
- finally{supportBtn.disabled=false}
-});
-function renderClips(){
- results.replaceChildren();
- clips.forEach((c,i)=>{const box=document.createElement("div");box.className="result";const title=document.createElement("strong");title.textContent=`क्लिप ${i+1} • ${size(c.blob.size)}`;const a=document.createElement("a");a.href=c.url;a.download=c.name;a.textContent="⬇ डाउनलोड करें";box.append(title,a);results.appendChild(box)});
- shareBtn.hidden=!clips.length;downloadBtn.hidden=!clips.length;
-}
-async function processVideo(){
- if(!selected||!ready||busy)return;busy=true;processBtn.disabled=true;supportBtn.disabled=true;progress.value=0;clearClips();
- let input=null;
- try{
-  status("वीडियो फ़ॉर्मेट पढ़ा जा रहा है…");input=await makeInput(selected);
-  const track=await input.getPrimaryVideoTrack();if(!track)throw new Error("इस फ़ाइल में वीडियो ट्रैक नहीं मिला।");
-  const canDecode=await track.canDecode();if(!canDecode)throw new Error("इस फ़ाइल का video codec आपके ब्राउज़र में decode नहीं हो सकता।");
-  const duration=await input.computeDuration();if(!Number.isFinite(duration)||duration<=0)throw new Error("वीडियो की अवधि पहचान नहीं सकी।");
-  const seg=Number($("segment").value),res=$("resolution").value,q=$("quality").value;
-  const vcodec=await getFirstEncodableVideoCodec(["avc","vp9","vp8"]);
-  if(!vcodec)throw new Error("कोई compatible output video codec नहीं मिला।");
-  let acodec=null;try{acodec=await getFirstEncodableAudioCodec(["aac","opus"]);}catch{}
-  const total=Math.ceil(duration/seg);
-  for(let i=0;i<total;i++){
-   const start=i*seg,end=Math.min(duration,start+seg);
-   const target=new BufferTarget(),output=new Output({format:new Mp4OutputFormat(),target});
-   const options={input,output,tracks:"primary",trim:{start,end},video:{codec:vcodec,quality:new Quality(q==="high"?"high":q==="small"?"low":"medium",),...(res==="original"?{}:{height:Number(res),fit:"contain"})},audio:acodec?{codec:acodec}:{}};
-   status(`क्लिप ${i+1}/${total} बनाई जा रही है…`);
-   const conversion=await Conversion.init(options);
-   if(!conversion.isValid)throw new Error("इस फ़ाइल के tracks को MP4 में convert नहीं कर सकते।");
-   conversion.onProgress=p=>{progress.value=Math.round(((i+Math.max(0,Math.min(1,p)))/total)*100)};
-   await conversion.execute();
-   const buffer=target.buffer;if(!buffer||!buffer.byteLength)throw new Error(`क्लिप ${i+1} खाली बनी।`);
-   const blob=new Blob([buffer],{type:"video/mp4"}),url=URL.createObjectURL(blob);
-   clips.push({name:`StatusUltra_HD_${String(i+1).padStart(2,"0")}.mp4`,blob,url});renderClips();
+  // ESM bundle + same-origin blob worker avoids the cross-origin worker.js failure on GitHub Pages.
+  const {FFmpeg}=await import('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+  const {toBlobURL}=await import('https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.js');
+  localFfmpeg=new FFmpeg();ffmpeg=localFfmpeg;
+  localFfmpeg.on('log',({message})=>log(message));
+  localFfmpeg.on('progress',({progress})=>setProgress(progress*100,'Encoding video…'));
+  const base='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
+  const coreURL=await toBlobURL(`${base}/ffmpeg-core.js`,'text/javascript');
+  const wasmURL=await toBlobURL(`${base}/ffmpeg-core.wasm`,'application/wasm');
+  // Worker URL must be same-origin blob to avoid GitHub Pages cross-origin Worker restrictions.
+  const workerURL=await toBlobURL(`${base}/ffmpeg-core.worker.js`,'text/javascript');
+  await localFfmpeg.load({coreURL,wasmURL,workerURL});
+  loaded=true;engineStatus('FFmpeg engine loaded','ok');log('FFmpeg core loaded successfully.');
+  if(cancelRequested)throw new Error('Cancelled by user');
+  const safeExt=(inName.match(/\.[a-z0-9]+$/i)||['.mp4'])[0].toLowerCase(), inputName='input'+safeExt;
+  await localFfmpeg.writeFile(inputName,new Uint8Array(await selectedFile.arrayBuffer()));
+  const probe=await localFfmpeg.ffprobe; // no-op: keep core API path explicit
+  // FFmpeg.wasm core may not include ffprobe; determine duration via browser metadata instead.
+  const duration=await getDuration(selectedFile);
+  if(!Number.isFinite(duration)||duration<=0)throw new Error('Could not read video duration. Try a valid MP4 video.');
+  const mode=$('duration').value, segment=mode==='all'?duration:Number(mode);
+  const portrait=$('portrait').checked, targetH=$('resolution').value==='original'?0:Number($('resolution').value);
+  const q=$('quality').value, bitrate=$('bitrate').value;
+  const maxRate=q==='high'?`${bitrate}M`:q==='balanced'?'5M':'2.5M';
+  const bufSize=q==='high'?'16M':q==='balanced'?'10M':'5M';
+  const startTimes=[];for(let s=0;s<duration;s+=segment){startTimes.push(s);}
+  let idx=0;
+  for(const startSec of startTimes){
+    if(cancelRequested)throw new Error('Cancelled by user');
+    const partDur=Math.min(segment,duration-startSec);idx++;
+    const outputName=`status-ultra-hd-${String(idx).padStart(2,'0')}.mp4`;
+    const vf=portrait
+      ? (targetH===0?'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1':`scale=${Math.round(targetH*9/16)}:${targetH}:force_original_aspect_ratio=decrease,pad=${Math.round(targetH*9/16)}:${targetH}:(ow-iw)/2:(oh-ih)/2,setsar=1`)
+      : (targetH===0?'scale=-2:1080':`scale=-2:${targetH}`);
+    const args=['-ss',String(startSec),'-i',inputName,'-t',String(partDur),'-vf',vf,'-c:v','libx264','-preset',$('fast').checked?'ultrafast':'veryfast','-b:v',maxRate,'-maxrate',maxRate,'-bufsize',bufSize,'-pix_fmt','yuv420p','-c:a',$('audio').checked?'aac':'copy'];
+    if($('audio').checked)args.push('-b:a','192k');else args.push('-an');
+    args.push('-movflags','+faststart','-y',outputName);
+    status(`Processing clip ${idx} of ${startTimes.length}…`,'ok');setProgress((idx-1)/startTimes.length*100,`Clip ${idx}/${startTimes.length}`);
+    log(`Processing ${outputName}, start=${startSec.toFixed(2)}s, duration=${partDur.toFixed(2)}s`);
+    await localFfmpeg.exec(args);
+    if(cancelRequested)throw new Error('Cancelled by user');
+    const data=await localFfmpeg.readFile(outputName);
+    const blob=new Blob([data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength)],{type:'video/mp4'});
+    const outH=targetH||1080,outW=portrait?Math.round(outH*9/16):0;
+    addClip(blob,outputName,partDur,portrait?outW:0,outH);
+    await localFfmpeg.deleteFile(outputName).catch(()=>{});
+    setProgress(idx/startTimes.length*100,`Completed ${idx}/${startTimes.length}`);
   }
-  progress.value=100;status(`पूरा हुआ! ${clips.length} क्लिप तैयार हैं। WhatsApp Status पर भेजने के लिए Share करें। WhatsApp फिर भी compress कर सकता है।`);
- }catch(e){console.error(e);status("PROCESSING ERROR: "+(e?.message||String(e))+"\nयह format/container या codec unsupported हो सकता है। दूसरी वीडियो से जाँचें।")}
- finally{busy=false;processBtn.disabled=!ready||!selected;supportBtn.disabled=false;try{if(input)await input.dispose()}catch{}}
+  status(`Done — ${startTimes.length} MP4 clip(s) exported.`,'ok');setProgress(100,'Complete');
+ }catch(e){
+  const msg=String(e?.message||e);
+  if(cancelRequested||/cancel/i.test(msg)){status('Processing cancelled.','');log('Processing cancelled.');}
+  else{status('Engine failed: '+msg,'err');log('ERROR: '+msg);}
+  engineStatus('Engine needs attention','err');
+ }finally{
+  if(localFfmpeg){try{localFfmpeg.terminate();}catch{}}
+  ffmpeg=null;setBusy(false);
+ }
 }
-processBtn.addEventListener("click",processVideo);
-shareBtn.addEventListener("click",async()=>{
- if(!clips.length)return;try{const c=clips[0],f=new File([c.blob],c.name,{type:"video/mp4"});if(navigator.share&&navigator.canShare?.({files:[f]}))await navigator.share({files:[f],title:"StatusUltra HD",text:"मेरी वीडियो क्लिप"});else status("Direct Share उपलब्ध नहीं है। क्लिप डाउनलोड करके WhatsApp में भेजें。")}catch(e){if(e.name!=="AbortError")status("Share error: "+e.message)}
-});
-downloadBtn.addEventListener("click",async()=>{for(const c of clips){const a=document.createElement("a");a.href=c.url;a.download=c.name;document.body.appendChild(a);a.click();a.remove();await new Promise(r=>setTimeout(r,400))}});
+function getDuration(file){return new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),v=document.createElement('video');v.preload='metadata';v.onloadedmetadata=()=>{const d=v.duration;URL.revokeObjectURL(url);resolve(d);};v.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Browser could not read video metadata'));};v.src=url;});}
+startBtn.addEventListener('click',start);
 </script>
-</body>
-</html>
+</body></html>
