@@ -1,133 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#10180f">
-<title>Status Ultra HD — FFmpeg Studio</title>
-<style>
-:root{--bg:#0b100c;--panel:#141d16;--panel2:#1b271d;--line:#2c3b2d;--green:#a6ff38;--yellow:#ffd84d;--text:#f4f8f1;--muted:#a7b4a5;--red:#ff7777}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1c2a18 0,#0b100c 55%);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
-.wrap{max-width:980px;margin:auto;padding:18px 14px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.brand{display:flex;gap:11px;align-items:center}.logo{width:45px;height:45px;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--yellow));display:grid;place-items:center;color:#0b100c;font-size:23px;font-weight:1000;box-shadow:0 0 30px #a6ff3830}.brand h1{font-size:19px;margin:0;letter-spacing:.2px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.badge{border:1px solid #3b5134;background:#1b2a19;color:var(--green);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;white-space:nowrap}
-.hero{border:1px solid #3b4d2e;background:linear-gradient(135deg,#1b2a18dd,#192016dd);border-radius:25px;padding:24px;position:relative;overflow:hidden;margin-bottom:16px}.hero:after{content:"";position:absolute;width:240px;height:240px;right:-80px;top:-120px;border-radius:50%;background:#a6ff3810;border:1px solid #a6ff3820}.eyebrow{color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:2px}.hero h2{font-size:clamp(26px,6vw,43px);line-height:1.04;margin:10px 0}.hero h2 span{color:var(--green)}.hero p{color:#bdc9b8;max-width:620px;margin:10px 0 0}.grid{display:grid;grid-template-columns:1fr;gap:14px}.card{background:linear-gradient(180deg,#172119,#111812);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 10px 35px #0002}.card h3{font-size:16px;margin:0 0 12px;display:flex;align-items:center;gap:8px}.num{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#a6ff381c;color:var(--green);font-weight:900;font-size:12px}
-.drop{border:1.5px dashed #52684b;border-radius:16px;padding:24px 15px;text-align:center;background:#0b120d;cursor:pointer;transition:.2s}.drop.drag{border-color:var(--green);background:#172719}.drop .icon{font-size:35px}.drop strong{display:block;margin:7px 0 3px;font-size:16px}.drop small{color:var(--muted)}input[type=file]{display:none}.filemeta{margin-top:12px;padding:12px;border-radius:12px;background:#202c20;display:none;word-break:break-word}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field select,.field input[type=number]{width:100%;padding:12px;background:#0c130d;color:var(--text);border:1px solid #344633;border-radius:11px;font:inherit;outline:none}.field select:focus,.field input:focus{border-color:var(--green)}.checkrow{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-top:13px}.checkrow input{accent-color:var(--green);width:17px;height:17px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:900;font-size:14px;cursor:pointer;transition:.15s}.btn:disabled{opacity:.45;cursor:not-allowed}.primary{background:linear-gradient(135deg,var(--green),var(--yellow));color:#10170d;flex:1}.secondary{background:#253325;border:1px solid #3d5139;color:var(--text)}.danger{background:#351b1b;border:1px solid #603333;color:#ffc1c1}.status{display:flex;align-items:center;gap:9px;margin-top:14px;color:var(--muted);font-size:13px}.dot{width:8px;height:8px;border-radius:50%;background:#667362;flex-shrink:0}.dot.ok{background:var(--green);box-shadow:0 0 12px #a6ff3880}.dot.err{background:var(--red)}.progressbox{margin-top:12px;display:none}.progressline{height:9px;background:#273228;border-radius:99px;overflow:hidden}.progressline span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--yellow));transition:width .2s}.progresslabels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}.results{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}.clip{background:#0c130e;border:1px solid #30402e;border-radius:15px;padding:12px}.clip video{width:100%;max-height:360px;background:#000;border-radius:10px}.clip h4{margin:10px 0 4px}.clip p{font-size:12px;color:var(--muted);margin:0 0 10px}.clip .actions{margin-top:8px}.notice{font-size:12px;color:#a9b8a5;line-height:1.5;margin-top:12px}.log{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#b7c9b2;white-space:pre-wrap;background:#080d09;border:1px solid #273427;border-radius:12px;padding:12px;max-height:170px;overflow:auto;margin-top:12px;display:none}.foot{text-align:center;color:#7f8d7b;font-size:11px;margin-top:22px}@media(min-width:760px){.wrap{padding:26px 22px 50px}.grid{grid-template-columns:1.1fr .9fr}.hero{padding:32px}.results{grid-template-columns:repeat(2,minmax(0,1fr))}.brand h1{font-size:21px}} 
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b100c">
+  <meta name="description" content="Status Ultra HD — FFmpeg Video Studio">
+  <title>Status Ultra HD — FFmpeg Studio</title>
 </head>
 <body>
-<div class="wrap">
-<header class="top"><div class="brand"><div class="logo">▶</div><div><h1>STATUS <span style="color:var(--green)">ULTRA HD</span></h1><p>FFmpeg Video Studio · Local processing</p></div></div><div class="badge">● FFmpeg ENGINE</div></header>
-<section class="hero"><div class="eyebrow">BULLET TRAIN VIDEO WORKFLOW</div><h2>Make every status<br><span>look sharper.</span></h2><p>Cut clips, export MP4, and prepare portrait videos for WhatsApp Status. Files stay on your device while processing.</p></section>
-<div class="grid">
-<section class="card"><h3><span class="num">01</span> Choose your video</h3>
-<label class="drop" id="drop"><input id="file" type="file" accept="video/*,.mp4,.mov,.webm,.mkv,.avi,.m4v,.3gp"><span class="icon">📹</span><strong>Tap to select or drop a video</strong><small>MP4 is recommended · Other formats depend on codec support</small></label>
-<div class="filemeta" id="filemeta"></div>
-<div class="status"><span class="dot" id="engineDot"></span><span id="engineStatus">Engine not loaded yet</span></div>
-<div class="actions"><button class="btn secondary" id="checkBtn">Check engine</button><button class="btn secondary" id="clearBtn">Clear</button></div>
-</section>
-<section class="card"><h3><span class="num">02</span> Export settings</h3>
-<div class="row">
-<div class="field"><label for="duration">Clip length</label><select id="duration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>60 seconds</option><option value="all">Full video (no split)</option></select></div>
-<div class="field"><label for="resolution">Resolution</label><select id="resolution"><option value="1080" selected>1080p Full HD</option><option value="720">720p HD</option><option value="original">Original height</option></select></div>
-<div class="field"><label for="quality">Quality preset</label><select id="quality"><option value="high" selected>High quality</option><option value="balanced">Balanced</option><option value="small">Smaller file</option></select></div>
-<div class="field"><label for="bitrate">Video bitrate</label><select id="bitrate"><option value="8" selected>8 Mbps</option><option value="12">12 Mbps</option><option value="5">5 Mbps</option></select></div>
-</div>
-<label class="checkrow"><input type="checkbox" id="portrait" checked> Fit into 9:16 portrait canvas (1080 × 1920)</label>
-<label class="checkrow"><input type="checkbox" id="audio" checked> Keep audio when available</label>
-<label class="checkrow"><input type="checkbox" id="fast"> Prefer faster processing (may reduce quality)</label>
-<div class="actions"><button class="btn primary" id="startBtn" disabled>⚡ Start processing</button><button class="btn danger" id="cancelBtn" disabled>Cancel</button></div>
-<div class="progressbox" id="progressbox"><div class="progressline"><span id="progress"></span></div><div class="progresslabels"><span id="progressText">Preparing…</span><span id="progressPct">0%</span></div></div>
-<div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Select a video to begin.</span></div>
-</section>
-</div>
-<section class="card" style="margin-top:14px"><h3><span class="num">03</span> Exported clips</h3><div id="results" class="results"><p class="notice">Your processed MP4 clips will appear here.</p></div><p class="notice">WhatsApp can recompress uploaded Status videos. This tool aims for a clean MP4 export; it cannot control WhatsApp's final compression. Processing speed depends on your phone, browser, video and codec support.</p><div id="log" class="log"></div></section>
-<div class="foot">STATUS ULTRA HD · FFmpeg.wasm · Green × Yellow Edition</div>
-</div>
-<script type="module">
-const $ = id => document.getElementById(id);
-const fileInput=$('file'), drop=$('drop'), startBtn=$('startBtn'), cancelBtn=$('cancelBtn');
-let selectedFile=null, ffmpeg=null, loaded=false, busy=false, cancelRequested=false, outputUrls=[];
-const logBox=$('log');
-function log(s){logBox.style.display='block';logBox.textContent += `[${new Date().toLocaleTimeString()}] ${s}\\n`;logBox.scrollTop=logBox.scrollHeight;}
-function status(s,type=''){ $('statusText').textContent=s; $('statusDot').className='dot'+(type?' '+type:'');}
-function engineStatus(s,type=''){ $('engineStatus').textContent=s; $('engineDot').className='dot'+(type?' '+type:'');}
-function setProgress(p,label){p=Math.max(0,Math.min(100,p));$('progressbox').style.display='block';$('progress').style.width=p+'%';$('progressPct').textContent=Math.round(p)+'%';$('progressText').textContent=label;}
-function cleanOutputs(){for(const u of outputUrls)URL.revokeObjectURL(u);outputUrls=[];$('results').innerHTML='<p class="notice">Your processed MP4 clips will appear here.</p>';}
-function setFile(file){if(!file)return;if(!file.type.startsWith('video/')&&!/\.(mp4|mov|webm|mkv|avi|m4v|3gp)$/i.test(file.name)){status('Please choose a video file.','err');return;}selectedFile=file;$('filemeta').style.display='block';$('filemeta').textContent=`${file.name} · ${(file.size/1024/1024).toFixed(1)} MB`;startBtn.disabled=false;status('Video selected. Check engine, then start processing.','ok');cleanOutputs();}
-fileInput.addEventListener('change',e=>setFile(e.target.files?.[0]));
-drop.addEventListener('click',()=>fileInput.click());
-drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});
-drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));
-drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');setFile(e.dataTransfer.files?.[0])});
-$('clearBtn').addEventListener('click',()=>{if(busy)return;selectedFile=null;fileInput.value='';$('filemeta').style.display='none';cleanOutputs();status('Select a video to begin.');startBtn.disabled=true;});
-$('checkBtn').addEventListener('click',async()=>{try{engineStatus('Checking browser support…');const webcodecs=typeof VideoEncoder!=='undefined'&&typeof VideoDecoder!=='undefined';let avc='unknown';if(typeof VideoEncoder!=='undefined'){try{const c=await VideoEncoder.isConfigSupported({codec:'avc1.42E01E',width:640,height:360,bitrate:1000000});avc=c.supported?'supported':'unsupported';}catch{avc='unknown';}}engineStatus(`WebCodecs: ${webcodecs?'available':'not available'} · H.264 encoder: ${avc}`,webcodecs&&avc==='supported'?'ok':'');log(`Browser check: WebCodecs=${webcodecs}; H264=${avc}`);if(!loaded)status('Browser check done. FFmpeg loads when processing starts.');}catch(e){engineStatus('Capability check failed','err');log(String(e));}});
-$('cancelBtn').addEventListener('click',()=>{cancelRequested=true;cancelBtn.disabled=true;status('Cancellation requested…');if(ffmpeg){try{ffmpeg.terminate();}catch{}}});
-function setBusy(v){busy=v;startBtn.disabled=v||!selectedFile;cancelBtn.disabled=!v;fileInput.disabled=v;$('checkBtn').disabled=v;$('clearBtn').disabled=v;}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function addClip(blob,name,duration,w,h){const url=URL.createObjectURL(blob);outputUrls.push(url);const div=document.createElement('div');div.className='clip';div.innerHTML=`<video controls playsinline preload="metadata" src="${url}"></video><h4>${esc(name)}</h4><p>${duration.toFixed(1)} sec · ${w}×${h} · ${(blob.size/1024/1024).toFixed(2)} MB</p><div class="actions"><a class="btn primary" style="text-decoration:none;text-align:center" href="${url}" download="${esc(name)}">⬇ Download MP4</a><button class="btn secondary share">Share</button></div>`;div.querySelector('.share').addEventListener('click',async()=>{try{const f=new File([blob],name,{type:'video/mp4'});if(navigator.canShare&&navigator.canShare({files:[f]})&&navigator.share){await navigator.share({files:[f],title:name,text:'Status Ultra HD video'});}else{status('Direct file sharing is unavailable here. Download the MP4 and share it in WhatsApp.');}}catch(e){if(e.name!=='AbortError')status('Share failed. Download the MP4 and share it manually.','err');}});$('results').appendChild(div);}
-async function start(){
- if(!selectedFile||busy)return;cancelRequested=false;cleanOutputs();setBusy(true);logBox.textContent='';status('Loading FFmpeg engine…');setProgress(0,'Loading FFmpeg core…');
- let localFfmpeg=null, inName='input'+(selectedFile.name.match(/\.[a-z0-9]+$/i)?.[0]||'.mp4');
- try{
-  // ESM bundle + same-origin blob worker avoids the cross-origin worker.js failure on GitHub Pages.
-  const {FFmpeg}=await import('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
-  const {toBlobURL}=await import('https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.js');
-  localFfmpeg=new FFmpeg();ffmpeg=localFfmpeg;
-  localFfmpeg.on('log',({message})=>log(message));
-  localFfmpeg.on('progress',({progress})=>setProgress(progress*100,'Encoding video…'));
-  const base='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
-  const coreURL=await toBlobURL(`${base}/ffmpeg-core.js`,'text/javascript');
-  const wasmURL=await toBlobURL(`${base}/ffmpeg-core.wasm`,'application/wasm');
-  // Worker URL must be same-origin blob to avoid GitHub Pages cross-origin Worker restrictions.
-  const workerURL=await toBlobURL(`${base}/ffmpeg-core.worker.js`,'text/javascript');
-  await localFfmpeg.load({coreURL,wasmURL,workerURL});
-  loaded=true;engineStatus('FFmpeg engine loaded','ok');log('FFmpeg core loaded successfully.');
-  if(cancelRequested)throw new Error('Cancelled by user');
-  const safeExt=(inName.match(/\.[a-z0-9]+$/i)||['.mp4'])[0].toLowerCase(), inputName='input'+safeExt;
-  await localFfmpeg.writeFile(inputName,new Uint8Array(await selectedFile.arrayBuffer()));
-  const probe=await localFfmpeg.ffprobe; // no-op: keep core API path explicit
-  // FFmpeg.wasm core may not include ffprobe; determine duration via browser metadata instead.
-  const duration=await getDuration(selectedFile);
-  if(!Number.isFinite(duration)||duration<=0)throw new Error('Could not read video duration. Try a valid MP4 video.');
-  const mode=$('duration').value, segment=mode==='all'?duration:Number(mode);
-  const portrait=$('portrait').checked, targetH=$('resolution').value==='original'?0:Number($('resolution').value);
-  const q=$('quality').value, bitrate=$('bitrate').value;
-  const maxRate=q==='high'?`${bitrate}M`:q==='balanced'?'5M':'2.5M';
-  const bufSize=q==='high'?'16M':q==='balanced'?'10M':'5M';
-  const startTimes=[];for(let s=0;s<duration;s+=segment){startTimes.push(s);}
-  let idx=0;
-  for(const startSec of startTimes){
-    if(cancelRequested)throw new Error('Cancelled by user');
-    const partDur=Math.min(segment,duration-startSec);idx++;
-    const outputName=`status-ultra-hd-${String(idx).padStart(2,'0')}.mp4`;
-    const vf=portrait
-      ? (targetH===0?'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1':`scale=${Math.round(targetH*9/16)}:${targetH}:force_original_aspect_ratio=decrease,pad=${Math.round(targetH*9/16)}:${targetH}:(ow-iw)/2:(oh-ih)/2,setsar=1`)
-      : (targetH===0?'scale=-2:1080':`scale=-2:${targetH}`);
-    const args=['-ss',String(startSec),'-i',inputName,'-t',String(partDur),'-vf',vf,'-c:v','libx264','-preset',$('fast').checked?'ultrafast':'veryfast','-b:v',maxRate,'-maxrate',maxRate,'-bufsize',bufSize,'-pix_fmt','yuv420p','-c:a',$('audio').checked?'aac':'copy'];
-    if($('audio').checked)args.push('-b:a','192k');else args.push('-an');
-    args.push('-movflags','+faststart','-y',outputName);
-    status(`Processing clip ${idx} of ${startTimes.length}…`,'ok');setProgress((idx-1)/startTimes.length*100,`Clip ${idx}/${startTimes.length}`);
-    log(`Processing ${outputName}, start=${startSec.toFixed(2)}s, duration=${partDur.toFixed(2)}s`);
-    await localFfmpeg.exec(args);
-    if(cancelRequested)throw new Error('Cancelled by user');
-    const data=await localFfmpeg.readFile(outputName);
-    const blob=new Blob([data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength)],{type:'video/mp4'});
-    const outH=targetH||1080,outW=portrait?Math.round(outH*9/16):0;
-    addClip(blob,outputName,partDur,portrait?outW:0,outH);
-    await localFfmpeg.deleteFile(outputName).catch(()=>{});
-    setProgress(idx/startTimes.length*100,`Completed ${idx}/${startTimes.length}`);
-  }
-  status(`Done — ${startTimes.length} MP4 clip(s) exported.`,'ok');setProgress(100,'Complete');
- }catch(e){
-  const msg=String(e?.message||e);
-  if(cancelRequested||/cancel/i.test(msg)){status('Processing cancelled.','');log('Processing cancelled.');}
-  else{status('Engine failed: '+msg,'err');log('ERROR: '+msg);}
-  engineStatus('Engine needs attention','err');
- }finally{
-  if(localFfmpeg){try{localFfmpeg.terminate();}catch{}}
-  ffmpeg=null;setBusy(false);
- }
-}
-function getDuration(file){return new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),v=document.createElement('video');v.preload='metadata';v.onloadedmetadata=()=>{const d=v.duration;URL.revokeObjectURL(url);resolve(d);};v.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Browser could not read video metadata'));};v.src=url;});}
-startBtn.addEventListener('click',start);
-</script>
-</body></html>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
