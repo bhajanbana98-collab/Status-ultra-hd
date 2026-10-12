@@ -1,0 +1,191 @@
+:root {
+  --bg: #0b100c;
+  --panel: #141d16;
+  --green: #a6ff38;
+  --yellow: #ffd84d;
+  --text: #f4f8f1;
+  --muted: #a7b4a5;
+  --line: #2c3b2d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #1c2a18, var(--bg) 60%);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: auto;
+  padding: 18px 14px 40px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--green), var(--yellow));
+  display: grid;
+  place-items: center;
+  color: #111;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.brand h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.brand h1 span,
+.hero h2 span {
+  color: var(--green);
+}
+
+.brand p,
+.hero p {
+  color: var(--muted);
+}
+
+.badge {
+  color: var(--green);
+  background: #1b2a19;
+  border: 1px solid #3b5134;
+  border-radius: 999px;
+  padding: 7px 9px;
+  font-size: 11px;
+}
+
+.hero,
+.card {
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, #172119, #101711);
+  border-radius: 22px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.hero h2 {
+  font-size: clamp(28px, 7vw, 44px);
+  line-height: 1.1;
+}
+
+.eyebrow {
+  color: var(--yellow);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.card h3 {
+  font-size: 17px;
+  margin-top: 0;
+}
+
+input[type="file"],
+select {
+  width: 100%;
+  margin: 8px 0 18px;
+}
+
+select {
+  padding: 13px;
+  border-radius: 11px;
+  border: 1px solid #344633;
+  background: #0b130d;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.check {
+  display: block;
+  margin: 14px 0;
+  color: var(--muted);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--green);
+  width: 17px;
+  height: 17px;
+}
+
+button,
+.download {
+  display: inline-block;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+#engine {
+  width: 100%;
+  background: #253325;
+  color: var(--text);
+  border: 1px solid #3d5139;
+}
+
+#start,
+.download {
+  background: linear-gradient(120deg, var(--green), var(--yellow));
+  color: #10170d;
+}
+
+#start {
+  width: 100%;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  accent-color: var(--green);
+  margin-top: 14px;
+}
+
+#status {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+#results {
+  display: grid;
+  gap: 8px;
+}
+
+.download {
+  width: 100%;
+}
+
+@media (min-width: 760px) {
+  .wrap {
+    padding: 26px 22px;
+  }
+}
